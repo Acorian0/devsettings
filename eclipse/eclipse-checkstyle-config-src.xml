@@ -30,11 +30,12 @@
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>
-    <module name="MethodLength"/>
+    <module name="MethodLength">
+      <property name="max" value="200"/>
+    </module>
     <module name="ParameterNumber"/>
     <module name="LineLength">
-      <property name="severity" value="ignore"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+      <property name="max" value="132"/>
     </module>
     <module name="EmptyForIteratorPad"/>
     <module name="MethodParamPad"/>
@@ -114,7 +115,7 @@
     </module>
     <module name="UpperEll"/>
     <module name="AnonInnerLength">
-      <property name="max" value="100"/>
+      <property name="max" value="250"/>
     </module>
     <module name="CovariantEquals"/>
     <module name="DefaultComesLast"/>
@@ -151,7 +152,7 @@
     <module name="SuperClone"/>
     <module name="SuperFinalize"/>
     <module name="DesignForExtension">
-      <property name="severity" value="info"/>
+      <property name="severity" value="ignore"/>
       <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="info"/>
     </module>
     <module name="OperatorWrap"/>
@@ -183,8 +184,11 @@
     <module name="EqualsAvoidNull"/>
     <module name="NoFinalizer"/>
     <module name="TrailingComment">
-      <property name="legalComment" value="//\$NON-NLS.*"/>
+      <property name="severity" value="ignore"/>
+      <property name="format" value="^(\s|\}|\)|;|(//\s*\$NON-NLS-\d\$))*$"/>
+      <property name="legalComment" value="^//\s*\$NON-NLS-\d\$"/>
       <message key="trailing.comments" value="Don''t use trailing comments unless you are documenting $NON-NLS."/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
   </module>
   <module name="JavadocPackage"/>
