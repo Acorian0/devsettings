@@ -5,7 +5,7 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: Sun Checks (IT4Energy)
+    Checkstyle-Configuration: Sun Checks (IT4Energy SRC)
     Description: none
 -->
 <module name="Checker">
@@ -175,7 +175,8 @@
     </module>
     <module name="MutableException"/>
     <module name="AvoidInlineConditionals">
-      <property name="severity" value="info"/>
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="info"/>
     </module>
     <module name="NoClone"/>
     <module name="MissingOverride">
