@@ -5,7 +5,6 @@
      "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
 
 <suppressions>
-  <suppress checks="JavadocStyle" files="test/*"/>
   <suppress checks="JavadocPackage" files="test/*"/>
   <suppress checks="JavadocMethod" files="test/*"/>
   <suppress checks="MagicNumber" files="test/*"/>
