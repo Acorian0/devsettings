@@ -12,3 +12,5 @@
   <suppress checks="ModifiedControlVariableCheck" files="test/.*\/*.java"/>
   <suppress checks="DesignForExtensionCheck" files="test/.*\/*.java"/>
 </suppressions>
+
+<!-- Please remember to keep this file synced with the eclipse files. More info on the README file -->
