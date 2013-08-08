@@ -5,10 +5,10 @@
      "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
 
 <suppressions>
-  <suppress checks="JavadocPackageCheck" files="test/*"/>
-  <suppress checks="JavadocMethodCheck" files="test/*"/>
-  <suppress checks="MagicNumberCheck" files="test/*"/>
-  <suppress checks="HideUtilityClassConstructorCheck" files="test/*"/>
-  <suppress checks="ModifiedControlVariableCheck" files="test/*"/>
-  <suppress checks="DesignForExtensionCheck" files="test/*"/>
+  <suppress checks="JavadocPackageCheck" files="test/**\/*.java"/>
+  <suppress checks="JavadocMethodCheck" files="test/**\/*.java"/>
+  <suppress checks="MagicNumberCheck" files="test/**\/*.java"/>
+  <suppress checks="HideUtilityClassConstructorCheck" files="test/**\/*.java"/>
+  <suppress checks="ModifiedControlVariableCheck" files="test/**\/*.java"/>
+  <suppress checks="DesignForExtensionCheck" files="test/**\/*.java"/>
 </suppressions>
