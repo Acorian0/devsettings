@@ -8,7 +8,7 @@
   <suppress checks="JavadocPackage" files="test/*"/>
   <suppress checks="JavadocMethod" files="test/*"/>
   <suppress checks="MagicNumber" files="test/*"/>
-  <suppress checks="HideUtilityClassConstructor files="test/*""/>
-  <suppress checks="ModifiedControlVariable files="test/*""/>
-  <suppress checks="DesignForExtension files="test/*""/>
+  <suppress checks="HideUtilityClassConstructor" files="test/*"/>
+  <suppress checks="ModifiedControlVariable" files="test/*"/>
+  <suppress checks="DesignForExtension" files="test/*"/>
 </suppressions>
