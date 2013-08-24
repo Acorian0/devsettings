@@ -8,6 +8,10 @@
     Checkstyle-Configuration: Sun Checks (IT4Energy SRC)
     Description: none
 -->
+
+<!-- Please remember to keep the differences between this file and the tests file
+synced with the eclipse file. More info on the README file -->
+
 <module name="Checker">
   <property name="severity" value="warning"/>
   <module name="TreeWalker">

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+     "-//Puppy Crawl//DTD Suppressions 1.0//EN"
+     "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
+
+<suppressions>
+  <suppress checks="JavadocPackageCheck" files="test/.*\/*.java"/>
+  <suppress checks="JavadocMethodCheck" files="test/.*\/*.java"/>
+  <suppress checks="MagicNumberCheck" files="test/.*\/*.java"/>
+  <suppress checks="HideUtilityClassConstructorCheck" files="test/.*\/*.java"/>
+  <suppress checks="ModifiedControlVariableCheck" files="test/.*\/*.java"/>
+  <suppress checks="DesignForExtensionCheck" files="test/.*\/*.java"/>
+</suppressions>
+
+<!-- Please remember to keep this file synced with the eclipse files. More info on the README file -->
