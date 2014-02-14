@@ -26,9 +26,9 @@ There are a few versions of the Eclipse IDE, each equipped with a different set 
 2. Make sure you don’t finish up with `$ECLIPSE/eclipse` directory. Check that `$ECLIPSE` has the subdirectories plugins, features and configuration
 3. Create a shortcut (if needed) to the `$ECLIPSE/eclipse.exe` file and place it anywhere you find useful
 4. Run Eclipse (either by running `$ECLIPSE/eclipse.exe` or double-clicking the shortcut created above)
+5. Set the Workspace directory: When prompted for the workspace directory enter the value of `$HOME/workspace`.
 
 ##Configuring Eclipse
-* Set the Workspace directory: When prompted for the workspace directory enter the value of `$HOME/workspace`.
 
 Eclipse provides an incremental compiler that runs in background (check **Project → Build automatically**). Some compiler’s checks are useful for detecting potential coding problems and should be enabled.
 
@@ -43,6 +43,7 @@ Eclipse provides an incremental compiler that runs in background (check **Projec
 8. Set **Enum type constant not covered by switch** to **Warning**
 9. Press **OK**. You might receive a message saying that Eclipse needs to rebuild, just press **Yes**.
 <a name="eclipse_setup-code_formatter"></a>
+
 ###Configure the Code Formatter
 The code formatter is an Eclipse component that formats (or indents) the code automatically when **CTRL+SHIFT+F** is pressed. Some adjustments to the original configuration are needed so that the code formatted is not rejected by the Checkstyle plugin and to increase the code readability. The following instructions show how to import a file with the set of necessary configurations. Alternatively, it can be configured manually following the instructions about [Manually Configuring the Code Formatter](#code_formatter_manually).
 
@@ -79,17 +80,22 @@ Configure Eclipse to warn about malformed JavaDoc comments. It is important that
 	
 12. Press **CTRL** and click on **System class identifier**. An editor window should open with the code of the *java.lang.System*.
 
-##Install additional Eclipse Plugins
-Your Eclipse installation comprises a number of plugins. However some plugins that are important for your productivity are not part of the base installation.
+##Install Additional Productivity Eclipse Plugins
+Your Eclipse installation comprises a number of plugins. However some plugins that are important for your productivity are not part of the base installation. For maximum productivity consider installing also the following plugins.
+
+**Essential Productivity Plugins**
 
 * [Eclipse CheckStyle plugin](#checkstyle)
 * [Eclipse FindBugs plugin](#findbugs)
 * [Eclipse JAutodoc plugin](#jautodoc)
+
+**Additional Productivity Plugins**
+
 * [Eclipse ObjectAid UML plugin](#objectaid)
 * [Eclipse JadClipse plugin](#jadclipse)
 * [Eclipse JavaCC plugin](#javacc)
 	
-##Troubleshooting
+##Troubleshooting your Eclipse Installation
 * Launch fails with the message `java.lang.NoClassDefFoundError: examples/MyClass. Exception in thread “main”`.
 This happens because the build process is failing. This type of failure can be caused by multiple reasons, yet the most common is because no *.class* is being generated. Go to *Window → Show view → Problems* and try correct the problems listed. Sometimes the problem is just a missing dependency among projects.
 
@@ -231,8 +237,9 @@ ___
 <a name="jautodoc"></a>
 #Eclipse JAutodoc Plugin
 ![](images/jautodoc_logo.jpg)  
-JAutodoc is a plugin that creates Javadoc comments automatically based on templates. The advantage of using this plugin is that it cuts a great deal of the time needed for creating Javadoc comments. Apart from adding the template for Javadoc style comments for the class/method & attributes it is smart enough to add the description also based on the signatures.
+JAutodoc is a plugin that creates Javadoc comments automatically based on templates. The advantage of using this plugin is that it cuts a great deal of the time needed for creating Javadoc comments. Apart from adding the template for Javadoc style comments for the class/method and attributes it is smart enough to add the description also based on the signatures.
 
+Please note that JAutodoc should not be used to create comment stubs quickly and not to be used to create meaningless comments. Whatever comments JAutoDoc generates must be reviewed by the programmer.
 
 ##Dependencies
 * [Install Eclipse IDE](#eclipse_setup)
@@ -259,7 +266,7 @@ JAutodoc is a plugin that creates Javadoc comments automatically based on templa
 2. Press **CTRL+ALT+J** or right-click the line, go to JAutodoc and select Add Javadoc
 
 ##See also
-The plugin’s [home page](http://jautodoc.sourceforge.net/)
+* JAutodoc plugin’s [home page](http://jautodoc.sourceforge.net/)
 
 ___
 <a name="objectaid"></a>
@@ -292,7 +299,7 @@ Deleted associations reappear when a project is reloaded. This happens because t
 
 ___
 <a name="jadclipse"></a>
-#JadClipse Plugin
+#JADclipse Plugin
 ![](images/duke_java_mascot.jpg)  
 JAD is the best Java Decompiler available. This plugin integrates it into Eclipse. Then, when we follow a link of class that is in a .jar or .class file and the source is not available is decompiles the class and shows the code automatically.
 
@@ -342,8 +349,10 @@ Official JavaCC for Eclipse [home page](http://eclipse-javacc.sourceforge.net/)
 
 ___
 <a name="checkstyle_conf_file"></a>
-#Creating a Checkstyle Configuration File
-The following set of instructions will guide you through the process of creating a checkstyle configuration file.
+#Manually Configuring Checkstyle 
+The following set of instructions will guide you through the process of creating a checkstyle configuration that works well with FindBugs plugin and with the Eclipse Code Formater itself.
+
+The settings below are the result of much research, discussion with other programmers and trial and error. Consider them as best practices. 
 
 1. Go to **Window → Preferences** and select **Checkstyle** on left menu list
 2. Select Sun Checks and press Copy…
@@ -412,7 +421,7 @@ While it is true that many return points can be indication that code is attempti
 
 ___
 <a name="code_formatter_manually"></a>
-#Manually Configuring the Code Formatter
+#Manually Configuring the Eclipse Code Formatter
 The following instructions will guide you through the process of manually configuring the **Code Formater** options in Eclipse.
 
 1. Go to **Window → Preferences**
