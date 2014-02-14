@@ -195,8 +195,8 @@ FindBugs is an open source program which looks for bugs in Java code. It uses st
 7. If you receive a warning telling that the software contains unsigned content, don’t worry and click **OK**.
 
 ##Configuration
-1. In Eclipse, go to Window → Show view → Other…
-2. Select Findbugs → Bug explorer
+1. In Eclipse, go to **Window → Show view → Other…**
+2. Select **Findbugs → Bug explorer**
 
 **Activate FindBugs for a project:**
 
@@ -299,7 +299,7 @@ JAD is the best Java Decompiler available. This plugin integrates it into Eclips
 Having this feature is very important for debugging and code understanding.
 
 ##Dependencies
-* Eclipse Setup
+* [Eclipse Setup](#eclipse_setup)
 	
 ##Installation
 1. Go to **Help → Install New Software… → Click Add…**
