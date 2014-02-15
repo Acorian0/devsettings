@@ -1,13 +1,42 @@
-#Table of Contents
+#Eclipse Configuration Reference Guide
+This guide describes how to properly instal and configure Eclipse for Java development. While replicating an Eclipse installion is relatively easy (as easy as copying the Eclipse installation directory to another machine), **replicating the configurations** by all members of a team is not. This text aims at documenting a reference Eclipse configuration that can be shared and replicated within a team of programmers. 
+
+##Table of Contents
+
+Base Eclipse Installation
+
 * [Eclipse Setup](#eclipse_setup)
+
+Setup of fundamental code quality plugins
+
 * [Eclipse CheckStyle plugin](#checkstyle)
 * [Eclipse FindBugs plugin](#findbugs)
 * [Eclipse JAutodoc plugin](#jautodoc)
+
+Setup of aditional plugins
+
 * [Eclipse ObjectAid UML plugin](#objectaid)
 * [Eclipse JadClipse plugin](#jadclipse)
 * [Eclipse JavaCC plugin](#javacc)
+
+Manual configuration details of plugins
+
 * [Creating a Checkstyle Configuration File](#checkstyle_conf_file)
 * [Manually Configuring the Code Formater](#code_formatter_manually)
+
+##Changing this guide
+This guide is accompanied by the **configuration files** for Eclipse and for some of the recomended plugins. These files **are meant to be synchronized** with the detailed configuration descriptions herein. In pparticular:
+
+* The file [*eclipse-java-formater-config.xml*](./) should relfect the detailed configuration descriptions found in the [detailed configuration of the Code Formater](#code_formatter_manually).
+
+* The files [*eclipse-checkstyle-config-src.xml*](./) and [*eclipse-checkstyle-config-src.xml*](./)should reflect the [detailed configurations of the Checkstyle](#checkstyle_conf_file) plugin.
+
+Thus, any changes to the description of the configurations described in this guide must be reflected on the configuration files and, conversely, changes to the configuration files should be reflected on the guide.
+
+## Authors
+* [Paulo Carreira](http://web.ist.utl.pt/paulo.carreira)
+* Gonçalo Almeida
+
 ___
 <a name="eclipse_setup"></a>
 #Eclipse Setup
@@ -22,17 +51,26 @@ The Eclipse Platform is our chosen building integrated development environments 
 There are a few versions of the Eclipse IDE, each equipped with a different set of plugins. You should download the **Eclipse IDE for Java EE Development** from [Eclipse download site](http://www.eclipse.org/downloads/index.php).
 
 ##Installation
-1. Unpack the contents of the zip file into the `$ECLIPSE` directory
-2. Make sure you don’t finish up with `$ECLIPSE/eclipse` directory. Check that `$ECLIPSE` has the subdirectories plugins, features and configuration
+For simplicity of presesntation, let `$ECLIPSE` be the Eclipse installation directory, and `$HOME` your home directory.
+
+1. Unpack the contents of the zip file into your the `$ECLIPSE` directory
+2. Make sure you don’t finish up with `$ECLIPSE/eclipse` directory. Check that `$ECLIPSE` has the subdirectories `plugins`, `features` and `configuration`
 3. Create a shortcut (if needed) to the `$ECLIPSE/eclipse.exe` file and place it anywhere you find useful
 4. Run Eclipse (either by running `$ECLIPSE/eclipse.exe` or double-clicking the shortcut created above)
 5. Set the Workspace directory: When prompted for the workspace directory enter the value of `$HOME/workspace`.
 
 ##Configuring Eclipse
+Your Eclipse installation must be properly configured to help you avoid programming mistakes and improve your productivity. Check that:
 
+* [The Java Background Compiler appropriately configured](#eclipse_setup-background_compiler)
+* [The Code Formater is using the code formating standard file](#eclipse_setup-code_formatter)
+* [The Javadoc Checker is enabled](#eclipse_setup-javadoc_checker)
+* [The source code of the JDK is installed](#eclipse_setup-attach_source)
+
+<a name="eclipse_setup-background_compiler"></a>
+###Configure the Background Compiler
 Eclipse provides an incremental compiler that runs in background (check **Project → Build automatically**). Some compiler’s checks are useful for detecting potential coding problems and should be enabled.
 
-###Configure the Background Compiler
 1. Go to **Window → Preferences**
 2. On the left list select **Java → Compiler**
 3. Open **Errors/Warnings**
@@ -42,35 +80,51 @@ Eclipse provides an incremental compiler that runs in background (check **Projec
 7. Set **Possible accidental boolean assignment** to **Warning**
 8. Set **Enum type constant not covered by switch** to **Warning**
 9. Press **OK**. You might receive a message saying that Eclipse needs to rebuild, just press **Yes**.
-<a name="eclipse_setup-code_formatter"></a>
 
+<a name="eclipse_setup-code_formatter"></a>
 ###Configure the Code Formatter
-The code formatter is an Eclipse component that formats (or indents) the code automatically when **CTRL+SHIFT+F** is pressed. Some adjustments to the original configuration are needed so that the code formatted is not rejected by the Checkstyle plugin and to increase the code readability. The following instructions show how to import a file with the set of necessary configurations. Alternatively, it can be configured manually following the instructions about [Manually Configuring the Code Formatter](#code_formatter_manually).
+The code formatter is an Eclipse component that formats (or indents) the code automatically when **CTRL+SHIFT+F** is pressed.
+
+Using the same code formating convention is **essential to achieve code readability** and avoid unnecessary conflicts when using version control. It also helps to frame developer ego---subsuming individual programmers stylistic preferences to the standard used by the group--- resulting in higher maintanability and faster code reviews. 
+
+The following instructions show how to import a file with the set of necessary configurations. 
 
 1. Go to **Window → Preferences**
 2. Open **Java → Code style → Formatter**
 3. Click **Import** and use the [*eclipse-java-formater-config.xml*](./) file in the same directory as this instructions
 
+Alternatively, you may also configure manually the Code formater by following the instructions about [Manually Configuring the Code Formatter](#code_formatter_manually).
+
+The formater is configured to follow the coding conventions of [SUNs/Oracle Java Coding Formating](http://www.oracle.com/technetwork/java/codeconventions-150003.pdf) conventions and the infamous book [Elements of Java Style](http://www.cambridge.org/us/academic/subjects/computer-science/software-engineering-and-development/elements-java-style) book with minor adjustments. 
+
+Some adjustments to the original configuration are needed so that the code, after beeing formatted, is not rejected by the [Checkstyle plugin](#checkstyle).
+
+<a name="eclipse_setup-javadoc_checker"></a>
 ###Enable the Javadoc Checker
-Configure Eclipse to warn about malformed JavaDoc comments. It is important that as you develop code you get the javadoc comments are well written otherwise you’ll probably end up with errors when you generate the javadoc.
+It is important that your [Javadoc comments](http://en.wikipedia.org/wiki/Javadoc) are well written otherwise you’ll probably end up with errors when you generate the javadoc.
+
+To configure Eclipse to warn about malformed Javadoc comments, proceed as follows:
 
 1. Go to **Window → Preferences**
 2. Open **Java → Compiler → Javadoc**
 3. Check the **Process Javadoc Comments** option
 4. On **Malformed Javadoc Comments** set the warning type to **Warning**
 
+Please consider reading Oracle's [How to write Javadoc comments for the Javadoc tool](http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html) manual. If you are designing an API, please read also the [Java API documentation requirements](http://www.oracle.com/technetwork/java/javase/documentation/index-142372.html).
+
 <a name="eclipse_setup-attach_source"></a>
 ###Attach the Source Code of JDK
-1. Sometimes the documentation of the Java API is not comprehensive enough forcing you to look at the actual code of the library. We can actually learn a lot by looking at the Java library code. If you want to seamlessly jump to an API item as an hyperlink you should have the source code of the JDK attached to your JDK installation on Eclipse.
-2. Go to **Window → Preferences**
-3. Open **Java → Installed JRE**
-4. Click on the appropriate JRE (e.g. jre6) and press **Edit…**
-5. Select all items in the **System Libraries** list
-6. Click on **Source Attachment…**
-7. Click on **External File…**
-8. Locate the *src.zip* file on your JDK
-9. Press **OK** and then press **Finish**
-10. To test the configuration, create a simple java file like:
+1Sometimes the documentation of the Java API is not comprehensive enough forcing you to look at the actual code of the library. We can actually learn a lot by looking at the Java library code. If you want to seamlessly jump to an API item as an hyperlink you should have the source code of the JDK attached to your JDK installation on Eclipse.
+
+1. Go to **Window → Preferences**
+2. Open **Java → Installed JRE**
+3. Click on the appropriate JRE (e.g. jre6) and press **Edit…**
+4. Select all items in the **System Libraries** list
+5. Click on **Source Attachment…**
+6. Click on **External File…**
+7. Locate the *src.zip* file on your JDK
+8. Press **OK** and then press **Finish**
+9. To test the configuration, create a simple java file like:
 	
         public class Teste {
 				void testme() {
@@ -78,7 +132,7 @@ Configure Eclipse to warn about malformed JavaDoc comments. It is important that
 				}
 			}
 	
-12. Press **CTRL** and click on **System class identifier**. An editor window should open with the code of the *java.lang.System*.
+10. Press **CTRL** and click on `System` class identifier. An editor window should open with the code of `the java.lang.System.`
 
 ##Install Additional Productivity Eclipse Plugins
 Your Eclipse installation comprises a number of plugins. However some plugins that are important for your productivity are not part of the base installation. For maximum productivity consider installing also the following plugins.
@@ -183,7 +237,7 @@ This can be done step-by-step as follows:
 5. Finally refactor the code, selecting the code you want to refactor and pressing **ALT+SHIFT+T**
 ___
 <a name="findbugs"></a>	
-#Eclipse Findbugs Plugin
+#Eclipse Findbugs Plugin Setup
 ![](images/findbugs_logo.png)   
 FindBugs is an open source program which looks for bugs in Java code. It uses static analysis to identify hundreds of different potential types of errors in Java programs. FindBugs operates on Java byte-code, rather than source code. The software is distributed as a stand-alone GUI application.
 
@@ -271,6 +325,8 @@ Please note that JAutodoc should not be used to create comment stubs quickly and
 ___
 <a name="objectaid"></a>
 #Eclipse ObjectAid Plugin Setup
+![](images/objectaid_image.png) 
+
 ObjectAid is a simple and diagram editor plugin for Eclipse.This plugin has some important features, such as, diagrams are saved in text format and thus can be added to a version repository and are kept coherent with the code automatically.
 
 ##Dependencies
@@ -299,7 +355,7 @@ Deleted associations reappear when a project is reloaded. This happens because t
 
 ___
 <a name="jadclipse"></a>
-#JADclipse Plugin
+#JADclipse Plugin Setup
 ![](images/duke_java_mascot.jpg)  
 JAD is the best Java Decompiler available. This plugin integrates it into Eclipse. Then, when we follow a link of class that is in a .jar or .class file and the source is not available is decompiles the class and shows the code automatically.
 
@@ -328,7 +384,7 @@ Open a *.class* file of some jar that is included in your project and the source
 
 ___
 <a name="javacc"></a>
-#Eclipse JavaCC Plugin
+#Eclipse JavaCC Plugin Setup
 Do you need to write parsers for markup documents that do not subscribe to standard formats such as HTML or XML? JavaCC allows you to do all of that in Java. JavaCC plugin integrates it into Eclipse with grammar syntax highlight and auto-completion and on-the-fly error checking. It re-generates the Java file automatically when the grammar file is altered and saved.
 
 ##Dependencies
@@ -349,10 +405,12 @@ Official JavaCC for Eclipse [home page](http://eclipse-javacc.sourceforge.net/)
 
 ___
 <a name="checkstyle_conf_file"></a>
-#Manually Configuring Checkstyle 
-The following set of instructions will guide you through the process of creating a checkstyle configuration that works well with FindBugs plugin and with the Eclipse Code Formater itself.
+#Checkstyle Manual Configuration
+The following set of instructions will guide you through the process of creating a checkstyle configuration that works well with FindBugs plugin and with the Eclipse Code Formater itself. 
 
 The settings below are the result of much research, discussion with other programmers and trial and error. Consider them as best practices. 
+
+**Adjusting the Checkstyle plugin settings**
 
 1. Go to **Window → Preferences** and select **Checkstyle** on left menu list
 2. Select Sun Checks and press Copy…
@@ -417,12 +475,17 @@ While it is true that many return points can be indication that code is attempti
 46. Select the module **Filters**
 47. Enable **Suppression Comment Filter**  
 ***Rationale:*** *In some situations it may be legitimate to create a block of code that is not means to be checked. This should a rare exception that will have to be documented appropriately.*
-48. Select the newly created configuration, press **Export...** at the bottom right corner and save the file in a suitable folder.
+
+**Re-exporting the configuration file**
+
+Select the newly created configuration, press **Export...** at the bottom right corner and save the file in a suitable folder.
 
 ___
 <a name="code_formatter_manually"></a>
-#Manually Configuring the Eclipse Code Formatter
+#Eclipse Code Formatter Manual Configuration
 The following instructions will guide you through the process of manually configuring the **Code Formater** options in Eclipse.
+
+**Adjusting the Eclipse Code Fromater settings**
 
 1. Go to **Window → Preferences**
 2. Expand **Java → Code style → Code formatter**
@@ -446,4 +509,7 @@ The following instructions will guide you through the process of manually config
 ***Rationale:*** *Extra blank lines are not needed. Javadoc comment blanks lines, if needed, should be introduced using HTML (e.g using <br> tag).*
 13. Disable **New line after @param tags** and click **Ok**  
 ***Rationale:*** *This makes comment blocks more compact, following SUN’s standard.*
-14. You may export the configuration file clicking in **Export All...** and saving the file to a suitable folder
+
+**Re-exporting the Configuration file**
+
+You may export the configuration file clicking in **Export All...** and saving the file to a suitable folder
