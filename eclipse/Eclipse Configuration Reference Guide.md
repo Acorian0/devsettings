@@ -1,9 +1,8 @@
 #Eclipse Configuration Reference Guide
-This guide describes how to properly instal and configure Eclipse for Java development. While replicating an Eclipse installion is relatively easy (as easy as copying the Eclipse installation directory to another machine), **replicating the configurations** by all members of a team is not. This text aims at documenting a reference Eclipse configuration that can be shared and replicated within a team of programmers. 
+This guide describes how to properly install and configure Eclipse for Java development. While replicating an Eclipse installation is relatively easy (as easy as copying the Eclipse installation directory to another machine), **replicating the configurations** by all members of a development team is not a simple task. This text aims at documenting a reference Eclipse configuration that can be shared and replicated within a team of programmers. 
 
-##Table of Contents
-
-Base Eclipse Installation
+##Step-by-step installation
+Setup the Eclipse Integrated Development Environment
 
 * [Eclipse Setup](#eclipse_setup)
 
@@ -11,25 +10,25 @@ Setup of fundamental code quality plugins
 
 * [Eclipse CheckStyle plugin](#checkstyle)
 * [Eclipse FindBugs plugin](#findbugs)
+
+Setup of additional productivity plugins
+
 * [Eclipse JAutodoc plugin](#jautodoc)
-
-Setup of aditional plugins
-
 * [Eclipse ObjectAid UML plugin](#objectaid)
 * [Eclipse JadClipse plugin](#jadclipse)
 * [Eclipse JavaCC plugin](#javacc)
 
-Manual configuration details of plugins
+Manually configure the Code Convention plugins 
 
 * [Creating a Checkstyle Configuration File](#checkstyle_conf_file)
 * [Manually Configuring the Code Formater](#code_formatter_manually)
 
-##Changing this guide
-This guide is accompanied by the **configuration files** for Eclipse and for some of the recomended plugins. These files **are meant to be synchronized** with the detailed configuration descriptions herein. In pparticular:
+##Configuration files
+This guide is accompanied by the **configuration files** for Eclipse and for some of the recommended plugins. These files **are meant to be synchronized** with the detailed configuration descriptions herein. In particular:
 
-* The file [*eclipse-java-formater-config.xml*](./) should relfect the detailed configuration descriptions found in the [detailed configuration of the Code Formater](#code_formatter_manually).
+* The file [*eclipse-java-formater-config.xml*](./) should reflect the detailed configuration descriptions found in the [detailed configuration of the Code Formater](#code_formatter_manually).
 
-* The files [*eclipse-checkstyle-config-src.xml*](./) and [*eclipse-checkstyle-config-src.xml*](./)should reflect the [detailed configurations of the Checkstyle](#checkstyle_conf_file) plugin.
+* The files [*eclipse-checkstyle-config-src.xml*](./) and [*eclipse-checkstyle-config-src.xml*](./) should reflect the [detailed configurations of the Checkstyle](#checkstyle_conf_file) plugin.
 
 Thus, any changes to the description of the configurations described in this guide must be reflected on the configuration files and, conversely, changes to the configuration files should be reflected on the guide.
 
@@ -45,25 +44,34 @@ The Eclipse Platform is our chosen building integrated development environments 
 
 
 ##Dependencies
-* Install **Oracle JDK** from the [official site](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
+You must start by installing a Java Virtual Machine (JVM) to run Java programs and also the Java Development Kit that brings the java compiler as well as other tools required to develop Java programs. It is recommended that you set up **Oracle JDK (v1.7.0_51)** that will provide  the JDK along with the JVM.
+
+* Download and install **Oracle JDK JDK (v1.7.0_51)** from the [official site](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
+* Set the `JAVA_HOME` environment variable 
+* Add `JAVA_HOME/bin` to the `PATH` environment variable
+
 
 ##Download
-There are a few versions of the Eclipse IDE, each equipped with a different set of plugins. You should download the **Eclipse IDE for Java EE Development** from [Eclipse download site](http://www.eclipse.org/downloads/index.php).
+There are a few versions of the Eclipse IDE, each equipped with a different set of plugins. You should download the **Eclipse IDE for Java EE Development** from [Eclipse download site](http://www.eclipse.org/downloads/index.php). 
+
+**Warning:** The version of Eclipse must be compatible with JVM you installed the 32-bit JDK you must install the 32 bit Eclipse version. Likewise, if you installed the 64-bit JDK, you must install the 64-bit Eclipse.
 
 ##Installation
-For simplicity of presesntation, let `$ECLIPSE` be the Eclipse installation directory, and `$HOME` your home directory.
+Define the the `$ECLIPSE_HOME` system variable to point to to the Eclipse installation directory. Make sure also that you have the and `$HOME` variable pointing to your home directory.
 
-1. Unpack the contents of the zip file into your the `$ECLIPSE` directory
-2. Make sure you don’t finish up with `$ECLIPSE/eclipse` directory. Check that `$ECLIPSE` has the subdirectories `plugins`, `features` and `configuration`
-3. Create a shortcut (if needed) to the `$ECLIPSE/eclipse.exe` file and place it anywhere you find useful
-4. Run Eclipse (either by running `$ECLIPSE/eclipse.exe` or double-clicking the shortcut created above)
+1. Unpack the contents of the zip file into the `$ECLIPSE_HOME` directory
+2. Check that `$ECLIPSE_HOME` has the subdirectories `plugins`, `features` and `configuration`. Make sure **you don’t end up with ** a `$ECLIPSE/eclipse` directory. 
+3. Create a shortcut (if needed) to the `$ECLIPSE_HOME/eclipse.exe` file and place it anywhere you find useful
+4. Run Eclipse (either by running `$ECLIPSE_HOME/eclipse.exe` or double-clicking the shortcut created above)
 5. Set the Workspace directory: When prompted for the workspace directory enter the value of `$HOME/workspace`.
+
+For additional details you may refer to the [official Eclipse installation instructions](http://wiki.eclipse.org/Eclipse/Installation).
 
 ##Configuring Eclipse
 Your Eclipse installation must be properly configured to help you avoid programming mistakes and improve your productivity. Check that:
 
 * [The Java Background Compiler appropriately configured](#eclipse_setup-background_compiler)
-* [The Code Formater is using the code formating standard file](#eclipse_setup-code_formatter)
+* [The Code Formater is using the code formatting standard file](#eclipse_setup-code_formatter)
 * [The Javadoc Checker is enabled](#eclipse_setup-javadoc_checker)
 * [The source code of the JDK is installed](#eclipse_setup-attach_source)
 
@@ -85,7 +93,7 @@ Eclipse provides an incremental compiler that runs in background (check **Projec
 ###Configure the Code Formatter
 The code formatter is an Eclipse component that formats (or indents) the code automatically when **CTRL+SHIFT+F** is pressed.
 
-Using the same code formating convention is **essential to achieve code readability** and avoid unnecessary conflicts when using version control. It also helps to frame developer ego---subsuming individual programmers stylistic preferences to the standard used by the group--- resulting in higher maintanability and faster code reviews. 
+Using the same code for mating convention is **essential to achieve code readability** and avoid unnecessary conflicts when using version control. It also helps to frame developer ego---subsuming individual programmers stylistic preferences to the standard used by the group--- resulting in higher maintainability and faster code reviews. 
 
 The following instructions show how to import a file with the set of necessary configurations. 
 
@@ -95,9 +103,9 @@ The following instructions show how to import a file with the set of necessary c
 
 Alternatively, you may also configure manually the Code formater by following the instructions about [Manually Configuring the Code Formatter](#code_formatter_manually).
 
-The formater is configured to follow the coding conventions of [SUNs/Oracle Java Coding Formating](http://www.oracle.com/technetwork/java/codeconventions-150003.pdf) conventions and the infamous book [Elements of Java Style](http://www.cambridge.org/us/academic/subjects/computer-science/software-engineering-and-development/elements-java-style) book with minor adjustments. 
+The formater is configured to follow the coding conventions of [SUNs/Oracle Java Coding Formatting](http://www.oracle.com/technetwork/java/codeconventions-150003.pdf) conventions and the infamous book [Elements of Java Style](http://www.cambridge.org/us/academic/subjects/computer-science/software-engineering-and-development/elements-java-style) book with minor adjustments. 
 
-Some adjustments to the original configuration are needed so that the code, after beeing formatted, is not rejected by the [Checkstyle plugin](#checkstyle).
+Some adjustments to the original configuration are needed so that the code, after being formatted, is not rejected by the [Checkstyle plugin](#checkstyle).
 
 <a name="eclipse_setup-javadoc_checker"></a>
 ###Enable the Javadoc Checker
@@ -176,7 +184,9 @@ Checkstyle is a Java style checker and duplicate code detector. It can be run as
 7. If you receive a warning telling that the software contains unsigned content, don’t worry and click **OK**.
 
 ##Configuration
-By default, only a subset of the checks are enabled. Thus, Checkstyle must be properly configured to enable important checks that can be missing. Furthermore some adjustments have to be made to match the style of Code Formatter of Eclipse. This adjustments are made automatically importing the configuration files as explain below. Alternatively, the configuration file may be manually created following the instructions about [Creating a Checkstyle Configuration File](#checkstyle_conf_file)
+By default, only a subset of the checks are enabled. Thus, Checkstyle must be properly configured to enable important checks that can be missing. Furthermore some adjustments have to be made to match the style of the Eclipse Code Formatter. 
+
+To simplify the process just import the configuration files as explained below. Alternatively, the configuration file may be manually created following the instructions about [Creating a Checkstyle Configuration File](#checkstyle_conf_file)
 
 ###Showing the Checkstyle Views
 1. In Eclipse, go to **Window → Show view → Other…**
@@ -187,14 +197,16 @@ By default, only a subset of the checks are enabled. Thus, Checkstyle must be pr
 2. Click **New...**  
 3. In Type select **External Configuration File** and browse for the [*eclipse-checkstyle-config-src.xml*](./) and name it **Eclipse Checkstyle for Sources**  
 4. Repeat steps 2 and 3 to add the [*eclipse-checkstyle-config-test.xml*](./) and name it **Eclipse Checkstyle for Tests**  
-5. For each project, open the project properties and select **Checkstyle**
-6. Set the **Checkstyle active for this project**
-7. Uncheck the **Use simple configuration option**
-8. Remove any already existing checkstyle configuration from list (**Sun Checks** is probably there) and click **Add...**
-9. This configuration will be applied to a specific file set. On the window that just opened, set the **File Set Name** to **Source Checks**
-10. Select the "Eclipse Checkstyle for Sources" in the Check Configuration option
-11. On the **Regular Expression Patterns** list click **New..** and add this regular expression: `src/.*\.java$` (assuming *src/* is your source folder)
-12. Repeat the steps 9 through 11, naming the File Set Name to **Test Checks**, selecting **Eclipse Checkstyle for Tests** and adding the regular expression `test/.*\.java$`
+
+#### Enabling Checkstyle on a Java Project
+1. Select a Java  project and open the project properties and select **Checkstyle**
+2. Set the **Checkstyle active for this project**
+3. Uncheck the **Use simple configuration option**
+4. Remove any already existing checkstyle configuration from list (**Sun Checks** is probably there) and click **Add...**
+5. This configuration will be applied to a specific file set. On the window that just opened, set the **File Set Name** to **Source Checks**
+6. Select the "Eclipse Checkstyle for Sources" in the Check Configuration option
+7. On the **Regular Expression Patterns** list click **New..** and add this regular expression: `src/.*\.java$` (assuming *src/* is your source folder)
+8. Repeat the steps 9 through 11, naming the File Set Name to **Test Checks**, selecting **Eclipse Checkstyle for Tests** and adding the regular expression `test/.*\.java$`
 
 ###Run Checkstyle on Demand on a Specific File/Folder
 
@@ -235,7 +247,9 @@ This can be done step-by-step as follows:
 3. Press **CTRL+SHIFT+F** to format the entire file
 4. Right click on the buffer and select Apply Checkstyle fixes….
 5. Finally refactor the code, selecting the code you want to refactor and pressing **ALT+SHIFT+T**
+
 ___
+
 <a name="findbugs"></a>	
 #Eclipse Findbugs Plugin Setup
 ![](images/findbugs_logo.png)   
